@@ -96,6 +96,6 @@ public class CalculatingLiar extends Player {
 
     @Override
     public String toString() {
-        return "(-";
+        return "liar";
     }
 }
