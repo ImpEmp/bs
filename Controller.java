@@ -55,6 +55,7 @@ public class Controller {
 		else if (n == 0){	
 			toLog = false;
 		}
+reader.close();
   // toLog= true;
 		players = new ArrayList<>();
 		discardPile = new ArrayList<>();
