@@ -25,9 +25,6 @@ public class Controller {
 		CalculatingLiar.class, Player2.class, HumanPlayer3.class, Player4.class, PlayerConMan.class
 	};
 	public static void main(String[] args) {
-	
-	
-	
 		Controller c = new Controller();
 		Map<Class<?>, Integer> scores = new HashMap<Class<?>, Integer>();
 		for (Class<?> playerClass : playerClasses) {
@@ -51,7 +48,7 @@ public class Controller {
 		Scanner reader = new Scanner(System.in);
 		System.out.println("would you like to see the printout (one for yes, zero for no): ");
 		int n = reader.nextInt();
-
+// the print out selector
 		if (n == 1){
 		toLog = true;	
 		}
@@ -76,7 +73,9 @@ public class Controller {
 				deck.add(new Card(i));
 			}
 		}
+		// shuffle the deck
 		Collections.shuffle(deck, rnd);
+		//drawing the cards
 		for (int i = 0; i < 4; ++i) {
 			Player p = players.get(i);
 			p.drawCards(deck.subList(i * 13, (i + 1) * 13));
@@ -84,6 +83,7 @@ public class Controller {
 		for (Player p : players) {
 			p.initialize(this);
 		}
+		//inishilizing the players
 		if (toLog) {
 			System.out.println(this.asString());
 		}
@@ -112,8 +112,9 @@ public class Controller {
 	// where it achually runs
 	private void runRound(List<Player> players, boolean toLog) {
 		for (Player player : players) {
+			//Iterator<String> it = Card.iterator();
 			Set<Card> cardsPlayed = new HashSet<Card>(player.requestCards(card, this));
-			System.out.println(" Iterating over HashSet in Java current object: " + Arrays.toString(itr.cardsPlayed()));
+			//System.out.println(" Iterating over HashSet in Java current object: " + Arrays.toString(it.cardsPlayed()));
 			if (cardsPlayed.size() == 0) throw new RuntimeException("Player " + player + " played zero cards");
 			boolean isBS = false;
 			for (Card c : cardsPlayed) {//marker to say if he is lying or not
@@ -132,6 +133,7 @@ public class Controller {
 			
 			player.removeCards(cardsPlayed);
 			discardPile.addAll(cardsPlayed);
+			
 			List<Player> bs = new ArrayList<>();
 			for (Player p : players) {
 				if (p == player) continue;
@@ -140,12 +142,13 @@ public class Controller {
 				}
 			}
 			if (bs.size() != 0) {
+				//decides who is the player that is the active bs'er
 				Player playerThinksBS = bs.get(rnd.nextInt(bs.size()));
 				
 				if (toLog) {
 					System.out.println(playerThinksBS + " called BS");
 				}
-				
+				// Doling out the cards to the deserving owner
 				if (isBS) {
 					player.drawCards(discardPile);
 					discardPile.clear();
