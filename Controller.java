@@ -21,8 +21,9 @@ public class Controller {
 	private List<Player> players;
 	public Random rnd = new Random();
 	private int card;
-	private static final Class<?>[] playerClasses = {
-		CalculatingLiar.class, Player2.class, HumanPlayer3.class, Player4.class, PlayerConMan.class
+	private static final Class<?>[] playerClasses = {// the set of players
+		// human player at the moment is not functining acording to plan 
+		CalculatingLiar.class, Player2.class, HumanPlayer3.class,/****Jerk.class,TwoCardPlayer.class, *****/Player4.class, PlayerConMan.class,SawyerPowel.class
 	};
 	public static void main(String[] args) {
 		Controller c = new Controller();
@@ -55,7 +56,7 @@ public class Controller {
 		else if (n == 0){	
 			toLog = false;
 		}
-reader.close();
+		reader.close();
   // toLog= true;
 		players = new ArrayList<>();
 		discardPile = new ArrayList<>();
