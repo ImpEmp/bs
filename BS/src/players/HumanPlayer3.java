@@ -1,10 +1,9 @@
 package players;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
+import java.util.Scanner;
 import controller.Card;
 import controller.Controller;
 import controller.Player;
@@ -40,23 +39,34 @@ public class HumanPlayer3 extends Player {
     //bs??
     protected boolean bs(Player player, int card, int numberOfCards,
             Controller controller) {
-        Card[] hand = getHand();
-        int myCards = 0;
-        for (Card c : hand) {
-            if (c.getNumber() == card)
-                myCards++;
-        }       
-        update(controller);
-        for (Integer number : knownCardsOnDeck) {
-            if (number == card) {
-                myCards++;
-            }
-        }
-
-        return player.handSize() == 0
-                || numberOfCards > 4
-                || myCards + numberOfCards > 4
-                || (player.handSize() < 5 && handSize() == 1);
+//        Card[] hand = getHand();
+//        int myCards = 0;
+//        for (Card c : hand) {
+//            if (c.getNumber() == card)
+//                myCards++;
+//        }       
+//        update(controller);
+//        for (Integer number : knownCardsOnDeck) {
+//            if (number == card) {
+//                myCards++;
+//            }
+//        }
+//
+//        return player.handSize() == 0
+//                || numberOfCards > 4
+//                || myCards + numberOfCards > 4
+//                || (player.handSize() < 5 && handSize() == 1);
+    	System.out.println("*Do you want to call BS?");
+    	int resp = Controller.reader.nextInt();
+    	if(resp == 1)
+    		return true;
+    	else if(resp == 0)
+    		return false;
+    	else
+    	{
+    		System.out.println("I didn't understand that.");
+    		return bs(player, card, numberOfCards, controller);
+    	}
     }
 
     @Override
