@@ -23,7 +23,7 @@ public class Controller {
 	private int card;
 	private static final Class<?>[] playerClasses = {// the set of players
 		// human player at the moment is not functining acording to plan 
-		CalculatingLiar.class, Player2.class, HumanPlayer3.class,Drunkard.class,RiskTaker.class,/****Jerk.class,FiveCardThinkAhead.class,TwoCardPlayer.class, *****/Player4.class, PlayerConMan.class,SawyerPowel.class
+		CalculatingLiar.class, Player2.class, HumanPlayer3.class,Drunkard.class,RiskTaker.class,/****Jerk.class,FiveCardThinkAhead.class, *****/Player4.class,TwoCardPlayer.class, PlayerConMan.class,SawyerPowel.class
 	};
 	public static void main(String[] args) {
 		Controller c = new Controller();
