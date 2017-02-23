@@ -1,6 +1,7 @@
 package players;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -16,30 +17,60 @@ public class HumanPlayer3 extends Player {
     @Override
     protected List<Card> requestCards(int card, Controller controller) {
         Card[] hand = getHand();
+        System.out.println("tis your turn");	
+        System.out.println(Arrays.toString(hand));
         List<Card> ret =  new ArrayList<Card>();
-        for (Card c : hand) {
-            if (c.getNumber() == card) {
-                ret.add(c);
-            }
+        int cont = 1;
+        int resp = 1;
+        Card temp = null;
+        while(cont==1){
+        	 resp = Controller.reader.nextInt();
+         for (Card c : hand) {  
+           if (c.getNumber() == resp) {
+             ret.add(c);
+             temp = c;
+           }  
+         }
+         // makes it so they have to play a card
+          if(temp == null){
+        	  System.out.println("please play an achual card");	
+        	  while (temp == null){
+        		  System.out.println("please play an achual card");	
+        		  for (Card c : hand) {  
+        	           if (c.getNumber() == resp) {
+        	             ret.add(c);
+        	             temp = c;
+        	           }  
+        	         }
+        	  }  
+          } 
+        System.out.println("do you want to play another card");	
+        cont = Controller.reader.nextInt();
         }
-        if (ret.size() == 0) {
+        
+//        for (Card c : hand) {
+//            if (c.getNumber() == card) {
+//                ret.add(c);
+//            }
+//        }
+       if (ret.size() == 0) {
             ret.add(calculateWorstCard(card));
-        }
+       }
 
-        update(controller);
+       update(controller);
 
         for (Card c : ret) {
             knownCardsOnDeck.add(c.getNumber());
         }
         lastDeckSize = controller.getDiscardPileSize() + ret.size();
         return ret;
-    }
+        }
 
     @Override
     //bs??
     protected boolean bs(Player player, int card, int numberOfCards,
             Controller controller) {
-//        Card[] hand = getHand();
+    Card[] hand = getHand();
 //        int myCards = 0;
 //        for (Card c : hand) {
 //            if (c.getNumber() == card)
@@ -57,6 +88,7 @@ public class HumanPlayer3 extends Player {
 //                || myCards + numberOfCards > 4
 //                || (player.handSize() < 5 && handSize() == 1);
     	System.out.println("*Do you want to call BS?");
+    	System.out.println(Arrays.toString(hand));
     	int resp = Controller.reader.nextInt();
     	if(resp == 1)
     		return true;
