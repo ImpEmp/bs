@@ -405,7 +405,7 @@ public class PlayerConMan extends Player {
             }
             if (lieCount > 0 && unknownCount < 1) {
                 debug("Strategic BS");
-                //callBS = true;
+                callBS = true;
             }
         }
 
@@ -426,7 +426,7 @@ public class PlayerConMan extends Player {
         if(lies.isEmpty()) {
             threshold /= 2;
         }
-        //callBS = callBS || prob < threshold;
+        callBS = callBS || prob < threshold;
 
         printTheDeck();
         return callBS;
