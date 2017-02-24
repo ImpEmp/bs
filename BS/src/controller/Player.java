@@ -1,9 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.Collections;
 
 public abstract class Player {
 	private List<Card> hand = new ArrayList<>();	
@@ -17,6 +19,13 @@ public abstract class Player {
 		Card[] returnValue = new Card[hand.size()];
 		hand.toArray(returnValue);
 		return returnValue;
+	}	
+	protected Card[] sortHand() {
+		Card[] returnValue = new Card[hand.size()];
+		int[] array = new int[hand.size()];
+	    Card[] bar = hand.toArray(returnValue);
+	    Arrays.sort(bar);
+		return bar;
 	}	
 	void drawCards(List<Card> cards) {
 		hand.addAll(cards);
