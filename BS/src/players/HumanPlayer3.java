@@ -95,13 +95,9 @@ public class HumanPlayer3 extends Player {
 //                myCards++;
 //            }
 //        }
-//
-//        return player.handSize() == 0
-//                || numberOfCards > 4
-//                || myCards + numberOfCards > 4
-//                || (player.handSize() < 5 && handSize() == 1);
+//        return player.handSize() == 0 || numberOfCards > 4 || myCards + numberOfCards > 4 || (player.handSize() < 5 && handSize() == 1);
     	System.out.println("*Do you want to call BS?");
-    	System.out.println(Arrays.toString(hand));
+   	System.out.println(Arrays.toString(hand));
     	int resp = Controller.reader.nextInt();
     	if(resp == 1)
     		return true;
@@ -155,4 +151,3 @@ public class HumanPlayer3 extends Player {
     public String toString() {
         return "human";
     }
-}
