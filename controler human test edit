@@ -137,7 +137,7 @@ public class Controller {
 					System.out.print('\n');
 				}
 				System.out.print("Discard pile: ");
-				System.out.print(discardPile);
+				//System.out.print(discardPile);
 				System.out.print(" " + discardPile.size() + " cards");
 				System.out.print('\n');
 			}
@@ -197,7 +197,7 @@ public class Controller {
 			str.append('\n');
 		}
 		str.append("Discard pile: ");
-		str.append(discardPile);
+		//str.append(discardPile);
 		str.append(" " + discardPile.size() + " cards");
 		str.append('\n');
 		return str.toString();
