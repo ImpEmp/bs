@@ -109,11 +109,11 @@ public class Controller {
 		}
 		return null;
 	}
-	// where it achually runs
+	// where it actually runs
 	private void runRound(List<Player> players, boolean toLog) {
 		for (Player player : players) {
 			//Iterator<String> it = Card.iterator();
-			Set<Card> cardsPlayed = new HashSet<Card>(player.requestCards(card, this));
+			Set<Card> cardsPlayed = new HashSet<Card>(player.getMove(card, this));
 			//System.out.println(" Iterating over HashSet in Java current object: " + Arrays.toString(it.cardsPlayed()));
 			if (cardsPlayed.size() == 0) throw new RuntimeException("Player " + player + " played zero cards");
 			boolean isBS = false;
