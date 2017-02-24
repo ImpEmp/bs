@@ -21,28 +21,37 @@ public class HumanPlayer3 extends Player {
         System.out.println(Arrays.toString(hand));
         List<Card> ret =  new ArrayList<Card>();
         int cont = 1;
-        int resp = 1;
-        Card temp = null;
+        int resp = 123456789;
+       int temp = 0;
+       int re = 1234567;
         while(cont==1){
+        	System.out.println(Arrays.toString(hand));
         	 resp = Controller.reader.nextInt();
          for (Card c : hand) {  
            if (c.getNumber() == resp) {
              ret.add(c);
-             temp = c;
-             break;
+             temp = 1;
+             System.out.println("do you want to play all of this type?");
+             re = Controller.reader.nextInt();
+             if (re ==0){
+        	 break;
+             }
            }  
          }
          // makes it so they have to play a card
-          if(temp == null){
+         if(temp == 1){
+        	 
+         }
+         else if(temp == 0){
         	  System.out.println("please play an achual card");	
-        	  while (temp == null){
+        	  while (temp == 0){
         		  System.out.println("please play an achual card");	
         		  for (Card c : hand) {  
         			  resp = Controller.reader.nextInt();
-        	           if (c.getNumber() == resp) {
+        	           if ((int)c.getNumber() == resp) {
         	             ret.add(c);
-        	             temp = c;
-        	             System.out.println(Arrays.toString(hand));
+        	             temp = 0;
+        	       
         	             break;
         	             
         	           }  
@@ -50,6 +59,7 @@ public class HumanPlayer3 extends Player {
         	  }  
           } 
         System.out.println("do you want to play another card");	
+        cont =1;
         cont = Controller.reader.nextInt();
         }
         
@@ -59,7 +69,7 @@ public class HumanPlayer3 extends Player {
 //            }
 //        }
      //  if (ret.size() == 0) {
-            ret.add(calculateWorstCard(card));
+        //  ret.add(calculateWorstCard(card));
        //}
 
        update(controller);
