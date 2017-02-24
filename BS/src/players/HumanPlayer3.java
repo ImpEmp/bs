@@ -31,7 +31,7 @@ public class HumanPlayer3 extends Player {
            if (c.getNumber() == resp) {
              ret.add(c);
              temp = 1;
-             System.out.println("do you want to play all of this type?");
+             System.out.println("do you want to another card of this value?");
              re = Controller.reader.nextInt();
              if (re ==0){
         	 break;
@@ -43,7 +43,6 @@ public class HumanPlayer3 extends Player {
         	 
          }
          else if(temp == 0){
-        	  System.out.println("please play an achual card");	
         	  while (temp == 0){
         		  System.out.println("please play an achual card");	
         		  for (Card c : hand) {  
@@ -51,7 +50,6 @@ public class HumanPlayer3 extends Player {
         	           if ((int)c.getNumber() == resp) {
         	             ret.add(c);
         	             temp = 0;
-        	       
         	             break;
         	             
         	           }  
