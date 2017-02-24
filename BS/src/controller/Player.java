@@ -9,7 +9,7 @@ import java.util.Collections;
 
 public abstract class Player {
 	private List<Card> hand = new ArrayList<>();	
-	protected abstract List<Card> requestCards(int card, Controller controller);
+	protected abstract List<Card> getMove(int card, Controller controller);
 	protected abstract boolean bs(Player player, int card, int numberOfCards, Controller controller);
 	protected void update(Controller controller) {	
 	}	

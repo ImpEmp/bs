@@ -12,7 +12,7 @@ public class Jerk extends Player{
     private int cake = 0;
 
     @Override
-    protected List<Card> requestCards(int bacon, Controller controller){
+    protected List<Card> getMove(int bacon, Controller controller){
         Card[] hand = getHand();
         List<Card> ret = new ArrayList<Card>();
         List<Card> others = new ArrayList<Card>();

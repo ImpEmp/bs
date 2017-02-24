@@ -14,7 +14,7 @@ public class HumanPlayer3 extends Player {
     private int lastDeckSize = 0;
 
     @Override
-    protected List<Card> requestCards(int card, Controller controller) {
+    protected List<Card> getMove(int card, Controller controller) {
         Card[] hand = getHand();
        
         System.out.println("tis your turn");	

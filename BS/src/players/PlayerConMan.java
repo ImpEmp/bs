@@ -235,7 +235,7 @@ public class PlayerConMan extends Player {
 
 
  @Override
- protected List < Card > requestCards(int card, Controller controller) {
+ protected List < Card > getMove(int card, Controller controller) {
   updateDeck(this, card, 0, controller);
 
   ArrayList < Card > ret = new ArrayList();

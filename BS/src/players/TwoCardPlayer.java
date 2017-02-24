@@ -12,7 +12,7 @@ public class TwoCardPlayer extends Player {
      */
     @Override
     // this is having trobuls as it can not get cards
-    protected List<Card> requestCards(int card, Controller controller) {
+    protected List<Card> getMove(int card, Controller controller) {
         Card[] hand = getHand();
         List<Card> ret =  new ArrayList<Card>();
         
