@@ -22,7 +22,7 @@ public abstract class Player {
 	}	
 	protected Card[] sortHand() {
 		Card[] returnValue = new Card[hand.size()];
-		int[] array = new int[hand.size()];
+		//int[] array = new int[hand.size()];
 	    Card[] bar = hand.toArray(returnValue);
 	    Arrays.sort(bar);
 		return bar;
@@ -51,3 +51,4 @@ public abstract class Player {
 		return hand.toString();
 	}
 }
+
