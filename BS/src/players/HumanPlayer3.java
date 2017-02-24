@@ -16,17 +16,9 @@ public class HumanPlayer3 extends Player {
     @Override
     protected List<Card> requestCards(int card, Controller controller) {
         Card[] hand = getHand();
-        String temp3 = "";
-       int temp2=0;
-       int[] array1 = new int[hand.length];
-        for(int z=0;z<=hand.length;z++){
-        	temp3 =String.valueOf(hand[z]);
-        	temp2 = Integer.parseInt(temp3);
-        	array1[z]=temp2;
-        }
-        Arrays.sort(array1);
+       
         System.out.println("tis your turn");	
-        System.out.println(Arrays.toString(array1));
+        System.out.println(Arrays.toString(hand));
         List<Card> ret =  new ArrayList<Card>();
         int cont = 1;
         int resp = 1;
@@ -37,6 +29,7 @@ public class HumanPlayer3 extends Player {
            if (c.getNumber() == resp) {
              ret.add(c);
              temp = c;
+             break;
            }  
          }
          // makes it so they have to play a card
@@ -49,7 +42,9 @@ public class HumanPlayer3 extends Player {
         	           if (c.getNumber() == resp) {
         	             ret.add(c);
         	             temp = c;
+        	             System.out.println(Arrays.toString(hand));
         	             break;
+        	             
         	           }  
         	         }
         	  }  
@@ -63,9 +58,9 @@ public class HumanPlayer3 extends Player {
 //                ret.add(c);
 //            }
 //        }
-       if (ret.size() == 0) {
+     //  if (ret.size() == 0) {
             ret.add(calculateWorstCard(card));
-       }
+       //}
 
        update(controller);
 
