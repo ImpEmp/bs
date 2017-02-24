@@ -1,5 +1,4 @@
 package players;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,8 +16,17 @@ public class HumanPlayer3 extends Player {
     @Override
     protected List<Card> requestCards(int card, Controller controller) {
         Card[] hand = getHand();
+        String temp3 = "";
+       int temp2=0;
+       int[] array1 = new int[hand.length];
+        for(int z=0;z<=hand.length;z++){
+        	temp3 =String.valueOf(hand[z]);
+        	temp2 = Integer.parseInt(temp3);
+        	array1[z]=temp2;
+        }
+        Arrays.sort(array1);
         System.out.println("tis your turn");	
-        System.out.println(Arrays.toString(hand));
+        System.out.println(Arrays.toString(array1));
         List<Card> ret =  new ArrayList<Card>();
         int cont = 1;
         int resp = 1;
@@ -37,9 +45,11 @@ public class HumanPlayer3 extends Player {
         	  while (temp == null){
         		  System.out.println("please play an achual card");	
         		  for (Card c : hand) {  
+        			  resp = Controller.reader.nextInt();
         	           if (c.getNumber() == resp) {
         	             ret.add(c);
         	             temp = c;
+        	             break;
         	           }  
         	         }
         	  }  
@@ -116,7 +126,6 @@ public class HumanPlayer3 extends Player {
             lastDeckSize = controller.getDiscardPileSize();
         }
     }
-
     private Card calculateWorstCard(int currentCard) {
         List<Integer> cardOrder = new ArrayList<>();
 
