@@ -18,7 +18,7 @@ public class HumanPlayer3 extends Player {
         Card[] hand = getHand();
        
         System.out.println("tis your turn");	
-        System.out.println(Arrays.toString(hand));
+       // System.out.println(Arrays.toString(hand));
         List<Card> ret =  new ArrayList<Card>();
         int cont = 1;
         int resp = 123456789;
