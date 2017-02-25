@@ -114,7 +114,11 @@ public class RiskTaker extends Player {
     }
 
     @Override
+  //chooses a random name from a list
     public String toString() {
-        return "risk_taker";
+    	String[] list = {"Le Chiffre ", "Micky Rosa", "Sky Masterson", "Jack Manfred", "Nicky Santoro "};
+    	Random r = new Random();
+    	String name =list[r.nextInt(list.length)];
+        return name;
     }
 }
