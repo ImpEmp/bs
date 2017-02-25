@@ -3,6 +3,7 @@ package players;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import controller.Card;
 import controller.Controller;
@@ -21,12 +22,13 @@ public class CalculatingLiar extends Player {
                 ret.add(c);
             }
         }
+        // makes it so that the #of cards played is never zero
         if (ret.size() == 0) {
             ret.add(calculateWorstCard(card));
         }
 
         update(controller);
-
+// adds the cards played to the internal pile count aproximation
         for (Card c : ret) {
             knownCardsOnDeck.add(c.getNumber());
         }
@@ -44,12 +46,13 @@ public class CalculatingLiar extends Player {
                 myCards++;
         }       
         update(controller);
+        // instantiated and updats the known cards on the deck
         for (Integer number : knownCardsOnDeck) {
             if (number == card) {
                 myCards++;
             }
         }
-
+// the cases where the computer will call it (it only calls when it is for sure lying)
         return player.handSize() == 0
                 || numberOfCards > 4
                 || myCards + numberOfCards > 4
@@ -63,6 +66,7 @@ public class CalculatingLiar extends Player {
     }
 
     @Override
+    // updates the known values to see what has changed
     protected void update(Controller controller) {
         if (lastDeckSize > controller.getDiscardPileSize()) {
             knownCardsOnDeck.clear();
@@ -71,7 +75,7 @@ public class CalculatingLiar extends Player {
             lastDeckSize = controller.getDiscardPileSize();
         }
     }
-
+// sorts the cards in the order they will be used in.
     private Card calculateWorstCard(int currentCard) {
         List<Integer> cardOrder = new ArrayList<>();
 
@@ -95,7 +99,11 @@ public class CalculatingLiar extends Player {
     }
 
     @Override
+    // chooses a random name from a list
     public String toString() {
-        return "Liar";
+    	String[] list = {"Finland", "Russia", "Latvia", "Lithuania", "Poland"};
+    	Random r = new Random();
+    	String name =list[r.nextInt(list.length)];
+        return name;
     }
 }
