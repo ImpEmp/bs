@@ -3,6 +3,8 @@ package players;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+
 import controller.*;
 import java.text.DecimalFormat;
 import java.util.Collections;
@@ -43,7 +45,7 @@ public class PlayerConMan extends Player {
    }
   }
  }
-
+ 
  private final ArrayList < ArrayList < MyCard >> theDeck = new ArrayList();
  private Location myLocation;
  private ArrayList < Player > players;
@@ -137,11 +139,11 @@ public class PlayerConMan extends Player {
    }
    nextCard = (nextCard + 4) % 13;
   }
-
   return new ArrayList[] {
    truths,
    lies
   };
+    
  }
 
  private void updateDeck(Player player, int card, int numberOfCards, Controller controller) {
@@ -196,7 +198,7 @@ public class PlayerConMan extends Player {
     }
    }
 
-   //If someone else won, adjust the probabilities on their cards
+   //If someone else won, adjust the probabilities on their cards (I was going to use this for consecutave games or other such things)
    if (winningPlayer != myLocation && winningPlayer != null) {
     int winningSize = players.get(winningPlayer.ordinal()).handSize();
     if (winningPlayer == loc) winningSize += numberOfCards;
@@ -213,7 +215,7 @@ public class PlayerConMan extends Player {
   }
 
 
-  //Detect if my hand size has changed to speed processing
+  //Detect if my hand size has changed
   if (myHand.size() != handSize()) {
    //Update values from my hand
    myHand.clear();
@@ -224,7 +226,7 @@ public class PlayerConMan extends Player {
     myHand.add(m);
    }
 
-   //Determine our next plays
+   //Determine our next plays and attempt to not tell to minimize total lies
    ArrayList < Integer > tl[] = getTruthesAndLies(player, card, myHand);
    truths = tl[0];
    lies = tl[1];
@@ -237,7 +239,8 @@ public class PlayerConMan extends Player {
  @Override
  protected List < Card > getMove(int card, Controller controller) {
   updateDeck(this, card, 0, controller);
-
+  @SuppressWarnings("unchecked")
+  // need to parameterize
   ArrayList < Card > ret = new ArrayList();
   int pick = card;
   boolean all = true;
@@ -268,7 +271,9 @@ public class PlayerConMan extends Player {
 
   //Get total number of unknown cards and total number of cards the player must have
   int handSize = player.handSize() + numberOfCards;
+  @SuppressWarnings("unchecked")
   ArrayList < MyCard > playerHand = new ArrayList();
+  @SuppressWarnings("unchecked")
   ArrayList < MyCard > discardPile = new ArrayList();
   double totalUnknown = 0;
   double playerUnknown = handSize;
@@ -278,6 +283,7 @@ public class PlayerConMan extends Player {
    for (MyCard m: set) {
     if (m.location == Location.UNKNOWN) {
      totalUnknown++;
+     // attempt to determane the location of cards using confidence in plays
     } else if (m.location == loc) {
      playerHand.add(m);
      playerUnknown -= m.confidence;
@@ -302,12 +308,12 @@ public class PlayerConMan extends Player {
   int possible = (int) Math.round(4 - cardsNotHeld);
   int needed = (int) Math.round(numberOfCards - cardsHeld);
   if (needed > possible) {
-   //Player can't possibly have the cards
+   //Player can't possibly have the cards ∴ call it 
    prob = 0.0;
    debug("impossible");
    callBS = true;
   } else if (needed <= 0) {
-   //Player guaranteed to have the cards
+   //Player guaranteed to have the cards∴ dnt call it 
    prob = 1.0;
    debug("guaranteed");
   } else {
@@ -326,7 +332,7 @@ public class PlayerConMan extends Player {
   }
 
   //Update which cards they may have put down
-  //  Assume they put down as many as they could truthfully
+  //  Assume they put down as many as they could truthfully(need to watch out for human player)
   int cardsMoved = 0;
   Iterator < MyCard > it = playerHand.iterator();
   while (it.hasNext()) {
@@ -342,7 +348,7 @@ public class PlayerConMan extends Player {
    }
   }
 
-  //We can't account for all the cards they put down
+  //They just put unknowns into play
   //  Adjust existing probabilities and move our lowest confidence cards to the discard
   if (cardsMoved < numberOfCards) {
    //  Reduce the confidence of all remaining cards, in case they lied
@@ -352,6 +358,7 @@ public class PlayerConMan extends Player {
    double probChosen = 1 * choose(cardsLeft - 1, cardsNeeded - 1) / choose(cardsLeft, cardsNeeded);
    if (Double.compare(cardsLeft, cardsNeeded) == 0) {
     //They're gonna win, call their bluff
+	   // its a no loss situation eather they win or they get the entire discard pile
     callBS = true;
     for (MyCard m: playerHand) {
      m.location = Location.DISCARD;
@@ -371,6 +378,7 @@ public class PlayerConMan extends Player {
      return (int) Math.signum(p1 - p2);
     }
    });
+   // Attempts to determine the total cards that have been put into play that we do not know what they do
    for (MyCard m: theDeck.get(card)) {
     if (m.location == Location.UNKNOWN || m.confidence < prob) {
      m.location = Location.DISCARD;
@@ -383,6 +391,7 @@ public class PlayerConMan extends Player {
   }
 
   //Get the confidence of the discardPile
+  // Assesses the most licly contents of the discard pile
   double discardPileConfidence = 1.0;
   for (MyCard m: discardPile) {
    discardPileConfidence *= m.confidence;
@@ -390,6 +399,7 @@ public class PlayerConMan extends Player {
   discardPileConfidence *= Math.pow(0.5, controller.getDiscardPileSize() - discardPile.size());
 
   //Call BS if the cards in the discard pile consists only of cards we need / will play
+  // Acquires cards it deans necessary
   if (discardPileConfidence > 0.5 && discardPile.size() == controller.getDiscardPileSize()) {
    double truthCount = 0;
    double lieCount = 0;
@@ -407,12 +417,14 @@ public class PlayerConMan extends Player {
     }
    }
    if (lieCount > 0 && unknownCount < 1) {
+	   // states that is is acquiring cards 
     debug("Strategic BS");
     callBS = true;
    }
   }
 
-  //What's the worst that could happen?
+  //What's the worst that could happen
+  // This is talying the confidence levels and getting them to have confidence in his own plays
   //Test the decks' 
   ArrayList < MyCard > worstHand = new ArrayList < MyCard > (myHand);
   worstHand.addAll(discardPile);
@@ -425,7 +437,7 @@ public class PlayerConMan extends Player {
   debug("winPlaysLeft = " + winPlaysLeft);
   debug("expectedPlaysLeft   = " + expectedPlaysLeft);
   debug("Threshold    = " + threshold);
-
+// determents the limit when he calls bs
   if (lies.isEmpty()) {
    threshold /= 2;
   }
@@ -457,10 +469,14 @@ public class PlayerConMan extends Player {
   return factorial(n) / (factorial(n - k) * factorial(k));
  }
 
+//chooses a random name from a list
  public String toString() {
-  return "ConMan";
+ 	String[] list = {"G-man", "HAL", "XERXES", "Thanis", "Poland"};
+ 	Random r = new Random();
+ 	String name =list[r.nextInt(list.length)];
+     return name;
  }
-
+// prints out what it thinks is the deck into the debug condition
  public void printTheDeck() {
   HashMap < Location, ArrayList < MyCard >> map = new HashMap();
   for (Location loc: Location.values()) {
@@ -479,7 +495,7 @@ public class PlayerConMan extends Player {
   ret += "Unknown: (" + map.get(Location.UNKNOWN).size() + " cards)\n";
   debug(ret);
  }
-
+// the debugging agent
  public void debug(Object s) {
 
  }
