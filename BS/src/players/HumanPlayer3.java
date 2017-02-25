@@ -18,7 +18,6 @@ public class HumanPlayer3 extends Player {
         Card[] hand = getHand();
        
         System.out.println("tis your turn");	
-       // System.out.println(Arrays.toString(hand));
         List<Card> ret =  new ArrayList<Card>();
         int cont = 1;
         int resp = 123456789;
@@ -61,15 +60,6 @@ public class HumanPlayer3 extends Player {
         cont = Controller.reader.nextInt();
         }
         
-//        for (Card c : hand) {
-//            if (c.getNumber() == card) {
-//                ret.add(c);
-//            }
-//        }
-     //  if (ret.size() == 0) {
-        //  ret.add(calculateWorstCard(card));
-       //}
-
        update(controller);
 
         for (Card c : ret) {
@@ -84,18 +74,6 @@ public class HumanPlayer3 extends Player {
     protected boolean bs(Player player, int card, int numberOfCards,
             Controller controller) {
     Card[] hand = getHand();
-//        int myCards = 0;
-//        for (Card c : hand) {
-//            if (c.getNumber() == card)
-//                myCards++;
-//        }       
-//        update(controller);
-//        for (Integer number : knownCardsOnDeck) {
-//            if (number == card) {
-//                myCards++;
-//            }
-//        }
-//        return player.handSize() == 0 || numberOfCards > 4 || myCards + numberOfCards > 4 || (player.handSize() < 5 && handSize() == 1);
     	System.out.println("*Do you want to call BS?");
    	System.out.println(Arrays.toString(hand));
     	int resp = Controller.reader.nextInt();
@@ -151,3 +129,4 @@ public class HumanPlayer3 extends Player {
     public String toString() {
         return "human";
     }
+}
