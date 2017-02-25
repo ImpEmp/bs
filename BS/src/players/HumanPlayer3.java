@@ -127,6 +127,6 @@ public class HumanPlayer3 extends Player {
 
     @Override
     public String toString() {
-        return "human";
+        return "Dave";
     }
 }
