@@ -16,7 +16,7 @@ public class RiskTaker extends Player {
     Calendar cal = Calendar.getInstance();
     int hour = cal.get(Calendar.HOUR_OF_DAY);
     int minutes = cal.get(Calendar.MINUTE);
-   	String[] list = {"Le Chiffre ", "Micky Rosa", "Sky Masterson", "Jack Manfred", "Nicky Santoro "};
+   	String[] list = {"Le Chiffre ", "Micky Rosa", "Sky Masterson", "Jack Manfred", "Nicky Santoro ", "Smart Eddy", "BA"};
 	Random r = new Random();
 	String name =list[r.nextInt(list.length)];
     @Override

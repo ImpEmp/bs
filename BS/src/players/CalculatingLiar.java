@@ -12,7 +12,7 @@ import controller.Player;
 public class CalculatingLiar extends Player {
     private final List<Integer> knownCardsOnDeck = new ArrayList<>();
     private int lastDeckSize = 0;
-	String[] list = {"Finland", "Russia", "Latvia", "Lithuania", "Poland"};
+	String[] list = {"Finland", "Russia", "Latvia", "Lithuania", "Bendy", "Lebenon", "Hanibal", "Nixon", "Philipe"};
 	Random r = new Random();
 	String name =list[r.nextInt(list.length)];
     @Override

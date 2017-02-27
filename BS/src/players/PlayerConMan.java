@@ -1,18 +1,19 @@
 package players;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
+import java.io.IOException;
 import controller.*;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 public class PlayerConMan extends Player {
- 	String[] list = {"G-man", "HAL", "XERXES", "Thanis", "Poland"};
+ 	String[] list = {"G-man", "HAL", "XERXES", "Thanis", "Farnser", "Milton", "Germany", "FACE"};
  	Random r = new Random();
  	String name =list[r.nextInt(list.length)];
  private enum Location {
@@ -498,6 +499,38 @@ public class PlayerConMan extends Player {
  }
 // the debugging agent
  public void debug(Object s) {
+	 FileOutputStream fout = null;
+		ObjectOutputStream oos = null;
+
+		try {
+
+			fout = new FileOutputStream("conmanoutput.txt");
+			oos = new ObjectOutputStream(fout);
+			oos.writeObject(s);
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+		} finally {
+
+			if (fout != null) {
+				try {
+					fout.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (oos != null) {
+				try {
+					oos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
 
  }
 }

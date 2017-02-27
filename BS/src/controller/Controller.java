@@ -10,9 +10,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import players.*;
 
 
@@ -137,7 +134,7 @@ public class Controller {
 				// uncomment for debug mode 
 				//if (isBS) System.out.print(" (which are actually " + cardsPlayed + ")");
 				System.out.println();
-				StringBuilder str = new StringBuilder();
+			
 				for (Player p : players) {
 					System.out.print(p);
 					System.out.print(": ");

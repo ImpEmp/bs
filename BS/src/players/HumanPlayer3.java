@@ -1,9 +1,7 @@
 package players;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 import controller.Card;
 import controller.Controller;
 import controller.Player;
@@ -103,27 +101,7 @@ public class HumanPlayer3 extends Player {
             lastDeckSize = controller.getDiscardPileSize();
         }
     }
-    private Card calculateWorstCard(int currentCard) {
-        List<Integer> cardOrder = new ArrayList<>();
 
-        int nextCard = currentCard;
-        do {
-            cardOrder.add(nextCard);
-            nextCard = (nextCard + 4) % 13;
-        } while (nextCard != currentCard);
-        Collections.reverse(cardOrder);
-
-        Card[] hand = getHand();
-        for (Integer number : cardOrder) {
-            for (Card card : hand) {
-                if (card.getNumber() == number) {
-                    return card;
-                }
-            }
-        }
-        //never happens
-        return null;
-    }
 
     @Override
     public String toString() {
