@@ -51,4 +51,3 @@ public abstract class Player {
 		return hand.toString();
 	}
 }
-

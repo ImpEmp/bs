@@ -9,9 +9,7 @@ public class Card {
 	public int getNumber() {
 		return n;
 	}
-	
 	public String toString() {
 		return String.valueOf(n);
 	}
-
 }
