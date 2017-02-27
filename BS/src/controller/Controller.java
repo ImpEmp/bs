@@ -130,7 +130,7 @@ public class Controller {
 			}
 			
 			if (toLog) {
-				System.out.print(player + " played " + cardsPlayed.size() + " cards of " + card);
+				System.out.print(player + " played " + cardsPlayed.size() + " cards of " + Card.toString(card));
 				// uncomment for debug mode 
 				//if (isBS) System.out.print(" (which are actually " + cardsPlayed + ")");
 				System.out.println();
