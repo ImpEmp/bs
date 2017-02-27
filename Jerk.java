@@ -12,7 +12,7 @@ public class Jerk extends Player{
     private int cake = 0;
 
     @Override
-    protected List<Card> requestCards(int bacon, Controller controller){
+    protected List<Card> getMove(int bacon, Controller controller){
         Card[] hand = getHand();
         List<Card> ret = new ArrayList<Card>();
         List<Card> others = new ArrayList<Card>();
@@ -76,7 +76,7 @@ public class Jerk extends Player{
     }
 
     public String toString(){
-        return "Player 3131961357_10";
+        return "Jerk";
     }
 
     public static <T> void moveRandom(List<T> from, List<T> to){

@@ -12,21 +12,25 @@ public class TwoCardPlayer extends Player {
      */
     @Override
     // this is having trobuls as it can not get cards
-    protected List<Card> requestCards(int card, Controller controller) {
+    protected List<Card> getMove(int card, Controller controller) {
         Card[] hand = getHand();
         List<Card> ret =  new ArrayList<Card>();
+        
         for (Card c : hand) {
             if (c.getNumber() == card) {
                 ret.add(c);
             }
         }
         int i=0;
-		while (ret.size() < 2 && i < cards.length) {
+        for (Card c : hand) {
+		while (ret.size() < 2 && i < hand.length) {
+			
 			if (c.getNumber() != card) {
 				ret.add(hand[i]);
 			}
 			i++;
 		}
+        }
 		return ret;
 	}
     Card[] hand = getHand();

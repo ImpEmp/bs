@@ -1,91 +1,80 @@
 package players;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Calendar;
 import controller.Card;
 import controller.Controller;
 import controller.Player;
-// need to find where it calls bs
+import java.util.Random;
 
-public class HumanPlayer3 extends Player {
+public class RiskTaker extends Player {
+	Random rand = new Random();
     private final List<Integer> knownCardsOnDeck = new ArrayList<>();
     private int lastDeckSize = 0;
-
+    Calendar cal = Calendar.getInstance();
+    int hour = cal.get(Calendar.HOUR_OF_DAY);
+    int minutes = cal.get(Calendar.MINUTE);
+   	String[] list = {"Le Chiffre ", "Micky Rosa", "Sky Masterson", "Jack Manfred", "Nicky Santoro ", "Smart Eddy", "BA"};
+	Random r = new Random();
+	String name =list[r.nextInt(list.length)];
     @Override
     protected List<Card> getMove(int card, Controller controller) {
         Card[] hand = getHand();
-       
-        System.out.println("tis your turn");	
         List<Card> ret =  new ArrayList<Card>();
-        int cont = 1;
-        int resp = 123456789;
-       int temp = 0;
-       int re = 1234567;
-        while(cont==1){
-        	System.out.println(Arrays.toString(hand));
-        	 resp = Controller.reader.nextInt();
-         for (Card c : hand) {  
-           if (c.getNumber() == resp) {
-             ret.add(c);
-             temp = 1;
-             System.out.println("do you want to another card of this value?");
-             re = Controller.reader.nextInt();
-             if (re ==0){
-        	 break;
-             }
-           }  
-         }
-         // makes it so they have to play a card
-         if(temp == 1){
-        	 
-         }
-         else if(temp == 0){
-        	  while (temp == 0){
-        		  System.out.println("please play an achual card");	
-        		  for (Card c : hand) {  
-        			  resp = Controller.reader.nextInt();
-        	           if ((int)c.getNumber() == resp) {
-        	             ret.add(c);
-        	             temp = 0;
-        	             break;
-        	             
-        	           }  
-        	         }
-        	  }  
-          } 
-        System.out.println("do you want to play another card");	
-        cont =1;
-        cont = Controller.reader.nextInt();
+        for (Card c : hand) {
+            if (c.getNumber() == card) {
+                ret.add(c);
+            }
         }
-        
-       update(controller);
+        if (ret.size() == 0) {
+            ret.add(calculateWorstCard(card));
+        }
+
+        update(controller);
 
         for (Card c : ret) {
             knownCardsOnDeck.add(c.getNumber());
         }
         lastDeckSize = controller.getDiscardPileSize() + ret.size();
         return ret;
-        }
+    }
 
     @Override
-    //bs??
     protected boolean bs(Player player, int card, int numberOfCards,
             Controller controller) {
-    Card[] hand = getHand();
-    	System.out.println("*Do you want to call BS?");
-   	System.out.println(Arrays.toString(hand));
-    	int resp = Controller.reader.nextInt();
-    	if(resp == 1)
-    		return true;
-    	else if(resp == 0)
-    		return false;
-    	else
-    	{
-    		System.out.println("I didn't understand that.");
-    		return bs(player, card, numberOfCards, controller);
+        Card[] hand = getHand();
+        int myCards = 0;
+        for (Card c : hand) {
+            if (c.getNumber() == card)
+                myCards++;
+        }       
+        update(controller);
+        for (Integer number : knownCardsOnDeck) {
+            if (number == card) {
+                myCards++;
+            }
+        }
+        int hh = 0;
+        double x = Math.random();
+    	if(x<.75){
+    		// not with that 75 you don't
+    	hh = 1;
     	}
+        int hhh = 3 + hh;
+        boolean potato = player.handSize() == 0
+                || numberOfCards > hhh
+                || myCards + numberOfCards > hhh
+                || (player.handSize() < 5 && handSize() == 1);; 
+        	if(x<.05){
+        		if (potato) {
+        		    potato = false;
+        		} else {
+        		    potato = true;
+        		}
+        	}
+        return potato;
     }
 
     @Override
@@ -103,6 +92,7 @@ public class HumanPlayer3 extends Player {
             lastDeckSize = controller.getDiscardPileSize();
         }
     }
+
     private Card calculateWorstCard(int currentCard) {
         List<Integer> cardOrder = new ArrayList<>();
 
@@ -126,7 +116,9 @@ public class HumanPlayer3 extends Player {
     }
 
     @Override
+  //chooses a random name from a list
     public String toString() {
-        return "Dave";
+ 
+        return name;
     }
 }

@@ -1,5 +1,5 @@
 package controller;
-
+//line 139 is bs
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,20 +17,21 @@ import players.*;
 
 
 public class Controller {
+	public final static Scanner reader = new Scanner(System.in);
 	private List<Card> discardPile;
 	private List<Player> players;
 	public Random rnd = new Random();
 	private int card;
 	private static final Class<?>[] playerClasses = {// the set of players
-		// human player at the moment is not functining acording to plan 
-		CalculatingLiar.class, Player2.class, HumanPlayer3.class,Drunkard.class,RiskTaker.class,/****Jerk.class,FiveCardThinkAhead.class, *****/Player4.class,TwoCardPlayer.class, PlayerConMan.class,SawyerPowel.class
-	};
+		CalculatingLiar.class, HumanPlayer3.class,/****Jerk.class, Player2.class,FiveCardThinkAhead.class,TwoCardPlayer.class,Drunkard.class,Player4.class,SawyerPowel.class*****/RiskTaker.class, PlayerConMan.class,
+	};	
 	public static void main(String[] args) {
 		Controller c = new Controller();
 		Map<Class<?>, Integer> scores = new HashMap<Class<?>, Integer>();
 		for (Class<?> playerClass : playerClasses) {
 			scores.put(playerClass, 0);
 		}
+		// while a player has not won the game continues
 		for (int i = 0; i < 1000; ++i) {
 			Player winner = c.playGame(false);
 			Class<?> winnerClass = winner.getClass();
@@ -38,6 +39,7 @@ public class Controller {
 		}
 		System.out.println(scores);
 	}
+	// where it inishis the players into the game
 	private List<Class<?>> getPlayerClasses() {
 		List<Class<?>> playerClassList = Arrays.asList(playerClasses);
 		Collections.shuffle(playerClassList, rnd);
@@ -46,17 +48,20 @@ public class Controller {
 	//setting up the game
 	public Player playGame(boolean toLog) {
 		//	boolean potato;
-		Scanner reader = new Scanner(System.in);
 		System.out.println("would you like to see the printout (one for yes, zero for no): ");
-		int n = reader.nextInt();
+		try {
+			int n = reader.nextInt();
 // the print out selector
-		if (n == 1){
-		toLog = true;	
+			if (n == 1){
+			toLog = true;	
+			}
+			else if (n == 0){	
+				toLog = false;
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		else if (n == 0){	
-			toLog = false;
-		}
-		reader.close();
   // toLog= true;
 		players = new ArrayList<>();
 		discardPile = new ArrayList<>();
@@ -105,19 +110,20 @@ public class Controller {
 		}
 		return null;
 	}
+	// both gets the winner and determans when someone has won
 	private Player getWinner() {
 		for (Player p : players) {
 			if (p.handSize() == 0) return p;
 		}
 		return null;
 	}
-	// where it achually runs
+	// where it actually runs
 	private void runRound(List<Player> players, boolean toLog) {
 		for (Player player : players) {
-			//Iterator<String> it = Card.iterator();
-			Set<Card> cardsPlayed = new HashSet<Card>(player.requestCards(card, this));
-			//System.out.println(" Iterating over HashSet in Java current object: " + Arrays.toString(it.cardsPlayed()));
-			if (cardsPlayed.size() == 0) throw new RuntimeException("Player " + player + " played zero cards");
+			//Iterator<String> it = player.iterator();
+			Set<Card> cardsPlayed = new HashSet<Card>(player.getMove(card, this));
+		//	System.out.println(" Iterating over HashSet in Java current object: " + Arrays.toString( player.cardsPlayed()));
+			if (cardsPlayed.size() == 0) throw new RuntimeException("Player " + player + " played zero cards this is illigal");
 			boolean isBS = false;
 			for (Card c : cardsPlayed) {//marker to say if he is lying or not
 				if (c.getNumber() != card) {
@@ -128,8 +134,21 @@ public class Controller {
 			
 			if (toLog) {
 				System.out.print(player + " played " + cardsPlayed.size() + " cards of " + card);
-				if (isBS) System.out.print(" (which are actually " + cardsPlayed + ")");
+				// uncomment for debug mode 
+				//if (isBS) System.out.print(" (which are actually " + cardsPlayed + ")");
 				System.out.println();
+				StringBuilder str = new StringBuilder();
+				for (Player p : players) {
+					System.out.print(p);
+					System.out.print(": ");
+					//str.append(p.handAsString());
+					System.out.print(" " + p.handSize() + " cards");
+					System.out.print('\n');
+				}
+				System.out.print("Discard pile: ");
+				//System.out.print(discardPile);
+				System.out.print(" " + discardPile.size() + " cards");
+				System.out.print('\n');
 			}
 			
 			
@@ -182,12 +201,12 @@ public class Controller {
 		for (Player p : players) {
 			str.append(p);
 			str.append(": ");
-			str.append(p.handAsString());
+			//str.append(p.handAsString());
 			str.append(" " + p.handSize() + " cards");
 			str.append('\n');
 		}
 		str.append("Discard pile: ");
-		str.append(discardPile);
+		//str.append(discardPile);
 		str.append(" " + discardPile.size() + " cards");
 		str.append('\n');
 		return str.toString();

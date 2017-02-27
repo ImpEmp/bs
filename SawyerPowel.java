@@ -7,7 +7,7 @@ import controller.*;
 
 public class SawyerPowel extends Player{
     @Override
-    protected List<Card> requestCards(int card, Controller controller) {
+    protected List<Card> getMove(int card, Controller controller) {
         Card[] hand = getHand();
         List<Card> ret =  new ArrayList<Card>();
     if( canWinHonestly(card) ) { //Hoarded enough cards that I won't have to bs ever again, time to win.
@@ -33,7 +33,7 @@ public class SawyerPowel extends Player{
 
   @Override
     public String toString() {
-        return "Hoarder";
+        return "Sawyer Powell";
     }
 
   private boolean canWinHonestly(int card) {

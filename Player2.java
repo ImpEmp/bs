@@ -6,7 +6,7 @@ import java.util.List;
 import controller.*;
 
 public class Player2 extends Player {
-	protected List<Card> requestCards(int card, Controller controller) {
+	protected List<Card> getMove(int card, Controller controller) {
 		Card[] hand = getHand();
 		List<Card> ret =  new ArrayList<Card>();
 		for (Card c : hand) {
