@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 public class PlayerConMan extends Player {
- 	String[] list = {"G-man", "HAL", "XERXES", "Thanis", "Farnser", "Milton", "Germany", "FACE"};
+ 	String[] list = {"G-man", "HAL", "XERXES", "Thanis", "Farnser", "Milton", "Germany", "FACE","SHODAN"};
  	Random r = new Random();
  	String name =list[r.nextInt(list.length)];
  private enum Location {
