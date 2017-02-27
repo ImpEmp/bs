@@ -33,7 +33,7 @@ public class SawyerPowel extends Player{
 
   @Override
     public String toString() {
-        return "Hoarder";
+        return "Sawyer Powell";
     }
 
   private boolean canWinHonestly(int card) {

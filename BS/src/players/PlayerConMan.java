@@ -12,6 +12,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 public class PlayerConMan extends Player {
+ 	String[] list = {"G-man", "HAL", "XERXES", "Thanis", "Poland"};
+ 	Random r = new Random();
+ 	String name =list[r.nextInt(list.length)];
  private enum Location {
   PLAYER_0,
   PLAYER_1,
@@ -471,9 +474,7 @@ public class PlayerConMan extends Player {
 
 //chooses a random name from a list
  public String toString() {
- 	String[] list = {"G-man", "HAL", "XERXES", "Thanis", "Poland"};
- 	Random r = new Random();
- 	String name =list[r.nextInt(list.length)];
+
      return name;
  }
 // prints out what it thinks is the deck into the debug condition

@@ -12,7 +12,9 @@ import controller.Player;
 public class CalculatingLiar extends Player {
     private final List<Integer> knownCardsOnDeck = new ArrayList<>();
     private int lastDeckSize = 0;
-
+	String[] list = {"Finland", "Russia", "Latvia", "Lithuania", "Poland"};
+	Random r = new Random();
+	String name =list[r.nextInt(list.length)];
     @Override
     protected List<Card> getMove(int card, Controller controller) {
         Card[] hand = getHand();
@@ -101,9 +103,7 @@ public class CalculatingLiar extends Player {
     @Override
     // chooses a random name from a list
     public String toString() {
-    	String[] list = {"Finland", "Russia", "Latvia", "Lithuania", "Poland"};
-    	Random r = new Random();
-    	String name =list[r.nextInt(list.length)];
+
         return name;
     }
 }
